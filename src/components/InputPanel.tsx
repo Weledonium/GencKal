@@ -8,34 +8,13 @@ interface InputPanelProps {
 }
 
 export default function InputPanel({ data, handleChange, setField }: InputPanelProps) {
-    const { boy, kilo, yagOrani, cinsiyet } = data;
+    const { boy, kilo, yagOrani } = data;
 
     return (
         <div className="w-full md:ml-[19rem] lg:ml-[22rem] bg-white text-gray-800 rounded-3xl shadow-2xl p-6 md:p-8 z-10 relative flex flex-col justify-center">
 
             {/* Top Bar: Compact Extra Data */}
             <div className="flex items-center justify-center mb-8 pb-4 border-b border-gray-100 text-sm">
-
-                {/* Gender */}
-                <div className="flex items-center gap-3">
-                    <span className="font-bold text-gray-500 text-xs uppercase tracking-wider">Cinsiyet:</span>
-                    <div className="flex items-center gap-1">
-                        <button
-                            onClick={() => setField('cinsiyet', 'erkek')}
-                            type="button"
-                            className={`px-4 py-1.5 rounded-lg text-sm font-black transition-all ${cinsiyet === 'erkek' ? 'bg-indigo-600 text-white shadow-md scale-105' : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700'}`}
-                        >
-                            Erkek
-                        </button>
-                        <button
-                            onClick={() => setField('cinsiyet', 'kadın')}
-                            type="button"
-                            className={`px-4 py-1.5 rounded-lg text-sm font-black transition-all ${cinsiyet === 'kadın' ? 'bg-pink-600 text-white shadow-md scale-105' : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700'}`}
-                        >
-                            Kadın
-                        </button>
-                    </div>
-                </div>
             </div>
 
             {/* Main Sliders Exactly like FFMI Calculator */}

@@ -154,6 +154,31 @@ export default function OnboardingForm() {
                             </h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                {/* Cinsiyet */}
+                                <div className="flex flex-col">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Cinsiyet</label>
+                                    <select name="cinsiyet" value={formData.fizikselVeriler.cinsiyet} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-0 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white hover:border-indigo-300">
+                                        <option value="erkek">Erkek</option>
+                                        <option value="kadin">Kadın</option>
+                                    </select>
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Yaşınız</label>
+                                    <input name="yas" type="number" min="15" max="100" value={formData.fizikselVeriler.yas} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white" required />
+                                </div>
+
+                                <div className="flex flex-col md:col-span-2">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Aktivite Seviyesi</label>
+                                    <select name="aktiviteSeviyesi" value={formData.fizikselVeriler.aktiviteSeviyesi} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-0 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white hover:border-indigo-300">
+                                        <option value="hareketsiz (ofis işi)">Hareketsiz (Ofis İşi)</option>
+                                        <option value="hafif egzersiz (haftada 1-2 gün)">Hafif Egzersiz (1-2 Gün)</option>
+                                        <option value="orta düzey egzersiz (haftada 3-5 gün)">Orta Düzey (3-5 Gün)</option>
+                                        <option value="yoğun egzersiz (haftada 6-7 gün)">Yoğun Egzersiz (6-7 Gün)</option>
+                                        <option value="atlet (günde 2 kez egzersiz)">Atlet (Günde 2 Kez)</option>
+                                    </select>
+                                </div>
+
                                 {/* Yaş */}
                                 <div className="flex flex-col">
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Yaş</label>
