@@ -154,6 +154,36 @@ export default function OnboardingForm() {
                             </h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                {/* Yaş */}
+                                <div className="flex flex-col">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Yaş</label>
+                                    <input name="yas" type="number" min="15" max="100" value={formData.fizikselVeriler.yas} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white" required />
+                                </div>
+
+                                {/* Aktivite Seviyesi */}
+                                <div className="flex flex-col">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Aktivite Seviyesi</label>
+                                    <select name="aktiviteSeviyesi" value={formData.fizikselVeriler.aktiviteSeviyesi} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-0 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white hover:border-indigo-300">
+                                        <option value="hareketsiz (ofis işi)">Hareketsiz (Ofis İşi)</option>
+                                        <option value="hafif egzersiz (haftada 1-2 gün)">Hafif Egzersiz (Haftada 1-2 Gün)</option>
+                                        <option value="orta düzey egzersiz (haftada 3-5 gün)">Orta Düzey Egzersiz (Haftada 3-5 Gün)</option>
+                                        <option value="yoğun egzersiz (haftada 6-7 gün)">Yoğun Egzersiz (Haftada 6-7 Gün)</option>
+                                    </select>
+                                </div>
+
+                                {/* Ağırlık Antrenmanı */}
+                                <div className="flex flex-col">
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Ağırlık Antrenmanı</label>
+                                    <label className="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 bg-gray-50 hover:bg-white transition-all cursor-pointer h-full">
+                                        <div className="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" name="agirlikCalisiyorMu" checked={formData.fizikselVeriler.agirlikCalisiyorMu} onChange={handleFizikselChange} className="sr-only peer" />
+                                            <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                        </div>
+                                        <span className="font-semibold text-gray-700 text-sm">Aktif olarak ağırlık kaldırıyorum</span>
+                                    </label>
+                                </div>
+
+                                {/* Temel Hedef */}
                                 <div className="flex flex-col">
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Temel Hedef</label>
                                     <select name="hedef" value={formData.diyetVerileri.hedef} onChange={handleDiyetChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-0 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white hover:border-indigo-300">
