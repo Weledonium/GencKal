@@ -67,7 +67,7 @@ export default function ReferenceScale({ score, type, gender }: ReferenceScalePr
                         return (
                             <div
                                 key={idx}
-                                className="absolute h-full flex items-center justify-center -translate-x-1/2"
+                                className="hidden md:flex absolute h-full items-center justify-center -translate-x-1/2"
                                 style={{ left: `${catPercent}%` }}
                             >
                                 <span className="text-white font-bold text-[10px] sm:text-xs tracking-wider drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] whitespace-nowrap">
