@@ -4,80 +4,88 @@ interface ResultsPanelProps {
     calculatedBMI: number;
     leanMass: number;
     bodyFat: number;
+    kilo: number; // <- 1. EKLENEN KISIM: Kilo verisini alıyoruz
 }
 
-export default function ResultsPanel({ calculatedBMI, leanMass, bodyFat }: ResultsPanelProps) {
-    // BMI'ye Göre Kategori ve Renk Hesaplama
+export default function ResultsPanel({ calculatedBMI, leanMass, bodyFat, kilo }: ResultsPanelProps) {
     let bmiLabel = "Normal";
-    let strokeColorClass = "text-emerald-500";
 
     if (calculatedBMI > 0) {
         if (calculatedBMI < 18.5) {
             bmiLabel = "Zayıf";
-            strokeColorClass = "text-red-500";
         } else if (calculatedBMI < 25) {
             bmiLabel = "Normal";
-            strokeColorClass = "text-emerald-500";
         } else if (calculatedBMI < 30) {
             bmiLabel = "Fazla Kilolu";
-            strokeColorClass = "text-amber-500";
         } else {
             bmiLabel = "Obez";
-            strokeColorClass = "text-red-600";
         }
     }
 
-    // 40 max referans BMI
+    const arcLength = 188.5; // (270 degrees out of 360 with radius 40)
     const progressPercent = calculatedBMI > 0 ? Math.min(100, Math.max(0, (calculatedBMI / 40) * 100)) : 0;
-    const dashOffset = 251.2 - (251.2 * progressPercent) / 100;
+    const dashOffset = arcLength - (arcLength * progressPercent) / 100;
+
+    // <- 2. EKLENEN KISIM: Vücut Yağ Kütlesi Hesaplama (Orijinal sitedeki hatanın çözümü)
+    const fatMass = (kilo * bodyFat) / 100;
 
     return (
-        <div className="h-fit md:absolute md:top-[-2rem] md:left-0 w-full md:w-[20rem] lg:w-[21rem] bg-indigo-900/95 text-white rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] p-5 z-20 border border-indigo-500/30 backdrop-blur-xl mb-8 md:mb-0 transition-transform hover:-translate-y-1">
-            <h3 className="text-center text-indigo-300 text-xs font-bold tracking-widest uppercase mb-4">Canlı Analiz</h3>
+        <div className="w-full md:w-[320px] bg-[#222144] text-white rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.85)] p-8 py-10 z-30 relative transition-transform mb-8 md:mb-0 h-auto md:h-[440px] flex flex-col font-sans">
 
             {/* Dairesel İlerleme Çubuğu SVG */}
-            <div className="relative w-36 h-36 mx-auto mb-4 bg-indigo-950/20 rounded-full shadow-inner">
-                <svg className="w-full h-full transform -rotate-90 drop-shadow-xl" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-indigo-950 opacity-60" />
-                    <circle
-                        cx="50" cy="50" r="40"
-                        stroke="currentColor"
-                        strokeWidth="8" fill="transparent"
-                        strokeDasharray="251.2"
-                        strokeDashoffset={dashOffset}
+            <div className="relative w-40 h-40 mx-auto mt-2 mb-auto">
+                <svg className="w-full h-full" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="gaugeGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#00E676" />
+                            <stop offset="100%" stopColor="#06b6d4" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        d="M 21.7 78.3 A 40 40 0 1 1 78.3 78.3"
+                        fill="transparent"
+                        stroke="#2f2e5a"
+                        strokeWidth="12"
                         strokeLinecap="round"
-                        className={`${strokeColorClass} transition-all duration-700 ease-out`}
+                    />
+                    <path
+                        d="M 21.7 78.3 A 40 40 0 1 1 78.3 78.3"
+                        fill="transparent"
+                        stroke="url(#gaugeGradient)"
+                        strokeWidth="12"
+                        strokeLinecap="round"
+                        strokeDasharray={arcLength}
+                        strokeDashoffset={dashOffset}
+                        className="transition-all duration-1000 ease-out"
                     />
                 </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className={`text-4xl font-black drop-shadow-sm transition-colors duration-700 ${strokeColorClass}`}>
+                <div className="absolute inset-0 flex flex-col items-center justify-center pt-2">
+                    <span className="text-5xl font-bold tracking-tight text-white mb-0.5">
                         {calculatedBMI > 0 ? calculatedBMI.toFixed(1) : "0.0"}
                     </span>
-                    <span className="text-[10px] text-indigo-200 mt-1 font-bold tracking-widest uppercase text-center">
+                    <span className="text-[10px] text-indigo-300 font-bold tracking-wider uppercase">
                         BMI SKORU
                     </span>
                 </div>
             </div>
 
-            {/* Alt Metrikler - Kapsamlı 4 Satır Planı */}
-            <div className="space-y-3 border-t border-indigo-700/50 pt-5">
-                <div className="flex justify-between items-center text-sm">
-                    <span className="text-indigo-300 font-medium tracking-wide">Beden Kitle İndeksi</span>
-                    <span className="font-bold text-base">{calculatedBMI > 0 ? calculatedBMI : '--'}</span>
+            {/* Alt Metrikler */}
+            <div className="space-y-4 px-1 pb-1 mt-auto">
+                <div className="flex justify-between items-center text-[13.5px]">
+                    <span className="text-[#656b85] font-normal tracking-wide">Beden Kitle İndeksi</span>
+                    <span className="text-[#656b85] font-medium">{calculatedBMI > 0 ? calculatedBMI.toFixed(2) : '--'}</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                    <span className="text-indigo-300 font-medium tracking-wide">BMI Durumu</span>
-                    <span className={`font-black text-xs sm:text-sm uppercase transition-colors duration-700 ${strokeColorClass}`}>
-                        {calculatedBMI > 0 ? bmiLabel : '--'}
-                    </span>
+                <div className="flex justify-between items-center text-[13.5px]">
+                    <span className="text-[#656b85] font-normal tracking-wide">BMI Durumu</span>
+                    <span className="text-[#656b85] font-medium">{calculatedBMI > 0 ? bmiLabel : '--'}</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                    <span className="text-indigo-300 font-medium tracking-wide">Yağsız Vücut Kütlesi</span>
-                    <span className="font-bold text-base">{leanMass > 0 ? leanMass : '--'} <span className="text-xs text-indigo-400 ml-0.5">kg</span></span>
+                <div className="flex justify-between items-center text-[13.5px]">
+                    <span className="text-[#656b85] font-normal tracking-wide">Yağsız Vücut Kütlesi</span>
+                    <span className="text-[#656b85] font-medium">{leanMass > 0 ? leanMass.toFixed(2) : '--'} kg</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                    <span className="text-indigo-300 font-medium tracking-wide">Vücut Yağ Oranı</span>
-                    <span className="font-bold text-base">{bodyFat > 0 ? bodyFat : '--'} <span className="text-xs text-indigo-400 ml-0.5">%</span></span>
+                <div className="flex justify-between items-center text-[13.5px]">
+                    <span className="text-[#656b85] font-normal tracking-wide">Vücut Yağ Kütlesi</span>
+                    <span className="text-[#656b85] font-medium">{bodyFat > 0 ? fatMass.toFixed(2) : '--'} kg</span>
                 </div>
             </div>
         </div>

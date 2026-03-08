@@ -98,54 +98,69 @@ export default function OnboardingForm() {
             {step === 1 ? (
                 <div className="animate-fade-in flex flex-col w-full">
 
-                    {/* --- ÜST BÖLÜM (KOYU LACİVERT) --- */}
-                    <section className="bg-gradient-to-br from-indigo-900 via-indigo-950 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-                        <div className="max-w-5xl mx-auto z-10 relative">
+                    {/* --- ÜST BÖLÜM --- */}
+                    <section className="bg-[#3E3AAF] text-white pb-16 relative overflow-hidden">
+                        {/* Mock Navbar */}
+                        <header className="w-full flex justify-between items-center py-4 px-6 md:px-12 text-white font-medium text-[15px] border-b border-white/10">                            <div className="flex items-center gap-3 font-bold text-xl tracking-tight">
+                            <div className="flex items-center gap-1">
+                                <div className="w-1.5 h-5 bg-white rounded-full"></div>
+                                <div className="w-1.5 h-7 bg-white rounded-full"></div>
+                                <div className="w-1.5 h-5 bg-white rounded-full"></div>
+                            </div>
+                            genckalcalculator
+                        </div>
+                            <div className="hidden sm:flex items-center gap-6">
+                                <button
+                                    onClick={handleProceedToDiet}
+                                    className="bg-emerald-500 hover:bg-emerald-400 text-white px-5 py-2 rounded-full font-bold transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] text-sm tracking-wide"
+                                >
+                                    Diyet Planı Oluştur
+                                </button>
+                                <a href="#" className="hover:text-indigo-200 transition-colors text-sm">Contacts</a>
+                            </div>
+                        </header>
 
-                            {/* Header */}
-                            <div className="text-center mb-12">
-                                <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white drop-shadow-md mb-4">
-                                    GencKal Calculator
+                        <div className="w-full max-w-[900px] mx-auto z-10 flex flex-col items-center mt-4 md:mt-8 px-4">
+
+                            {/* Main Title */}
+                            <div className="text-center mb-8 mt-2">
+                                <h1 className="text-[38px] sm:text-[44px] font-normal tracking-wide text-white drop-shadow-sm mb-2 font-sans">
+                                    GençKal Calculator
                                 </h1>
+                                <p className="text-[15px] sm:text-[16px] text-[#e0e7ff] font-light tracking-wide">
+                                    Sağlık metriklerinizi ve yağsız vücut kütlenizi belirleyin
+                                </p>
                             </div>
 
                             {errorLine && (
-                                <div className="max-w-3xl mx-auto mb-6 p-4 bg-red-500/20 border border-red-500/50 text-white rounded-xl text-center text-sm font-bold animate-pulse">
+                                <div className="w-full mb-4 p-4 bg-red-500/20 border border-red-500/50 text-white rounded-xl text-center text-sm font-bold animate-pulse">
                                     {errorLine}
                                 </div>
                             )}
 
-                            {/* ASYMMETRIC CARDS */}
-                            <div className="relative flex flex-col md:flex-row mt-6 w-full mb-8 md:mb-12">
-                                <ResultsPanel calculatedBMI={calculatedBMI} leanMass={leanMass} bodyFat={yagOrani || 0} />
-                                <InputPanel data={formData.fizikselVeriler} handleChange={handleFizikselChange} setField={setFizikselAlan} />
+                            {/* ASYMMETRIC CARDS SECTION */}
+                            <div className="relative flex flex-col md:flex-row mt-4 md:mt-8 w-full mb-6 md:mb-8 max-w-6xl mx-auto px-4">                                <div className="z-20 w-full md:w-auto flex justify-center md:justify-end">
+                                <ResultsPanel calculatedBMI={calculatedBMI} leanMass={leanMass} bodyFat={yagOrani || 0} kilo={kilo} />                            </div>
+                                <div className="z-10 w-full md:w-auto md:-ml-12 mt-6 md:mt-0 flex justify-center md:justify-start">
+                                    <InputPanel data={formData.fizikselVeriler} handleChange={handleFizikselChange} setField={setFizikselAlan} />
+                                </div>
                             </div>
+                        </div>
 
-                            {/* ALT SKALA (Gradient Bar) */}
+                        {/* ALT SKALA */}
+                        <div className="w-full -mt-10 md:-mt-16 relative z-20">
                             <ReferenceScale score={calculatedFFMI > 0 ? calculatedFFMI : calculatedBMI} type={calculatedFFMI > 0 ? "FFMI" : "BMI"} gender={formData.fizikselVeriler.cinsiyet} />
                         </div>
                     </section>
 
                     {/* --- ALT BÖLÜM (BEYAZ) --- */}
-                    <EducationalSection />
-
-                    {/* AŞAMA 2'YE GEÇİŞ BUTONU (BEYAZ BÖLÜMÜN EN ALTI) */}
-                    <section className="bg-white text-center pb-16 pt-4 border-t border-gray-100">
-                        <button
-                            onClick={handleProceedToDiet}
-                            className="group relative inline-flex items-center justify-center px-12 py-6 font-black tracking-wide text-white rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 shadow-[0_15px_40px_rgba(52,211,153,0.4)] hover:shadow-[0_20px_50px_rgba(52,211,153,0.6)] transition-all duration-300 transform hover:-translate-y-1 text-xl w-full sm:w-auto overflow-hidden"
-                        >
-                            <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
-                            <span className="relative">Bana Özel Diyet Planı Oluştur</span>
-                            <svg className="relative w-7 h-7 ml-3 transform transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-                    </section>
+                    <div className="-mt-4 md:-mt-8 relative z-30">
+                        <EducationalSection />
+                    </div>
 
                 </div>
             ) : (
-                // --- 2. ADIM (DİYET FORMU) ---
+                /* --- 2. ADIM (DİYET FORMU) --- */
                 <div className="flex-1 bg-gradient-to-br from-indigo-900 via-indigo-950 to-slate-900 py-12 px-4 sm:px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto bg-white text-gray-800 rounded-3xl shadow-2xl p-8 md:p-12 border border-white/10 animate-fade-in relative z-20 top-8">
                         <form onSubmit={handleSubmitFinal} className="space-y-8">
@@ -154,7 +169,6 @@ export default function OnboardingForm() {
                             </h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                {/* Cinsiyet */}
                                 <div className="flex flex-col">
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Cinsiyet</label>
                                     <select name="cinsiyet" value={formData.fizikselVeriler.cinsiyet} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-0 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white hover:border-indigo-300">
@@ -179,24 +193,6 @@ export default function OnboardingForm() {
                                     </select>
                                 </div>
 
-                                {/* Yaş */}
-                                <div className="flex flex-col">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Yaş</label>
-                                    <input name="yas" type="number" min="15" max="100" value={formData.fizikselVeriler.yas} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white" required />
-                                </div>
-
-                                {/* Aktivite Seviyesi */}
-                                <div className="flex flex-col">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Aktivite Seviyesi</label>
-                                    <select name="aktiviteSeviyesi" value={formData.fizikselVeriler.aktiviteSeviyesi} onChange={handleFizikselChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-0 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white hover:border-indigo-300">
-                                        <option value="hareketsiz (ofis işi)">Hareketsiz (Ofis İşi)</option>
-                                        <option value="hafif egzersiz (haftada 1-2 gün)">Hafif Egzersiz (Haftada 1-2 Gün)</option>
-                                        <option value="orta düzey egzersiz (haftada 3-5 gün)">Orta Düzey Egzersiz (Haftada 3-5 Gün)</option>
-                                        <option value="yoğun egzersiz (haftada 6-7 gün)">Yoğun Egzersiz (Haftada 6-7 Gün)</option>
-                                    </select>
-                                </div>
-
-                                {/* Ağırlık Antrenmanı */}
                                 <div className="flex flex-col">
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Ağırlık Antrenmanı</label>
                                     <label className="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 bg-gray-50 hover:bg-white transition-all cursor-pointer h-full">
@@ -208,7 +204,6 @@ export default function OnboardingForm() {
                                     </label>
                                 </div>
 
-                                {/* Temel Hedef */}
                                 <div className="flex flex-col">
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Temel Hedef</label>
                                     <select name="hedef" value={formData.diyetVerileri.hedef} onChange={handleDiyetChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-0 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white hover:border-indigo-300">
@@ -217,26 +212,24 @@ export default function OnboardingForm() {
                                         <option value="kilo_koruma">Kilo Koruma (Maintaining)</option>
                                     </select>
                                 </div>
+
                                 <div className="flex flex-col">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                                        Beslenme Tipi <span className="text-[10px] text-gray-400 normal-case">(Zorunlu)</span>
-                                    </label>
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Beslenme Tipi</label>
                                     <input name="diyetTipi" type="text" placeholder="Standart, Vegan, Keto..." value={formData.diyetVerileri.diyetTipi} onChange={handleDiyetChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white" required />
                                 </div>
+
                                 <div className="flex flex-col">
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Günlük Öğün Sayısı</label>
                                     <input name="ogunSayisi" type="number" min="1" max="8" value={formData.diyetVerileri.ogunSayisi} onChange={handleDiyetChange} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white" required />
                                 </div>
+
                                 <div className="flex flex-col">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                                        Alerjenler <span className="text-[10px] text-gray-400 normal-case">(Virgülle ayırın)</span>
-                                    </label>
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Alerjenler</label>
                                     <input name="alerjenler" type="text" placeholder="Yer Fıstığı, Süt..." value={formData.diyetVerileri.alerjenler.join(", ")} onChange={(e) => handleArrayChange(e, "alerjenler")} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white" />
                                 </div>
+
                                 <div className="flex flex-col md:col-span-2">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">
-                                        Kullanılan Takviyeler <span className="text-[10px] text-gray-400 normal-case">(Virgülle ayırın)</span>
-                                    </label>
+                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Kullanılan Takviyeler</label>
                                     <input name="kullanilanTakviyeler" type="text" placeholder="Whey Protein, Kreatin, Omega-3..." value={formData.diyetVerileri.kullanilanTakviyeler.join(", ")} onChange={(e) => handleArrayChange(e, "kullanilanTakviyeler")} className="border-2 border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 outline-none transition-all font-semibold text-gray-700 bg-gray-50 hover:bg-white" />
                                 </div>
                             </div>

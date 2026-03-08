@@ -1,50 +1,81 @@
 import React from "react";
 import { KullaniciProfil } from "../types";
 
-interface InputPanelProps {
+export interface InputPanelProps {
     data: KullaniciProfil["fizikselVeriler"];
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     setField: (name: keyof KullaniciProfil["fizikselVeriler"], value: any) => void;
 }
 
-export default function InputPanel({ data, handleChange, setField }: InputPanelProps) {
+export default function InputPanel({ data, handleChange }: InputPanelProps) {
     const { boy, kilo, yagOrani } = data;
 
+    const sliders = [
+        { name: 'boy', label: 'Boy', unit: 'cm', min: 120, max: 220, val: boy },
+        { name: 'kilo', label: 'Kilo', unit: 'kg', min: 30, max: 160, val: kilo },
+        { name: 'yagOrani', label: 'Yağ Oranı', unit: '%', min: 0, max: 100, val: yagOrani || 15 }
+    ];
+
     return (
-        <div className="w-full md:ml-[19rem] lg:ml-[22rem] bg-white text-gray-800 rounded-3xl shadow-2xl p-6 md:p-8 z-10 relative flex flex-col justify-center">
+        <div className="w-full max-w-[600px] md:w-[600px] bg-white text-gray-800 rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] p-8 pl-12 md:pl-32 h-auto flex flex-col font-sans relative z-30 mx-auto">
 
-            {/* Top Bar: Compact Extra Data */}
-            <div className="flex items-center justify-center mb-8 pb-4 border-b border-gray-100 text-sm">
-            </div>
-
-            {/* Main Sliders Exactly like FFMI Calculator */}
-            <div className="space-y-7">
-                {[
-                    { name: 'boy', label: 'Boy', unit: 'cm', min: 140, max: 230, val: boy },
-                    { name: 'kilo', label: 'Kilo', unit: 'kg', min: 40, max: 150, val: kilo },
-                    { name: 'yagOrani', label: 'Yağ Oranı', unit: '%', min: 3, max: 50, val: yagOrani || 15 }
-                ].map(slider => (
-                    <div key={slider.name} className="flex flex-col">
-                        <div className="flex justify-between items-baseline mb-1">
-                            <label className="text-sm font-bold text-gray-600 tracking-wide">
+            <div className="space-y-8 w-full mt-2">
+                {sliders.map(slider => (
+                    <div key={slider.name} className="flex flex-col w-full">
+                        {/* Üst Satır */}
+                        <div className="flex justify-between items-end mb-2 w-full">
+                            <label className="text-[16px] font-bold text-slate-500 tracking-wide">
                                 {slider.label}
                             </label>
-                            <div className="text-3xl font-black text-indigo-900 tracking-tight">
-                                {slider.val}<span className="text-sm text-gray-400 font-bold ml-1">{slider.unit}</span>
+                            <div className="text-3xl font-black text-slate-800 leading-none flex items-baseline gap-1">
+                                {slider.val}<span className="text-sm text-slate-400 font-bold ml-1">{slider.unit}</span>
                             </div>
                         </div>
-                        <input
-                            type="range"
-                            name={slider.name}
-                            min={slider.min}
-                            max={slider.max}
-                            value={slider.val}
-                            onChange={handleChange}
-                            className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-indigo-600 outline-none hover:accent-indigo-500 transition-all"
-                        />
+
+                        {/* Orta Satır (Slider) */}
+                        <div className="w-full relative py-2">
+                            <div className="relative h-2 bg-slate-200 rounded-full flex items-center w-full">
+                                <input
+                                    type="range"
+                                    name={slider.name}
+                                    min={slider.min}
+                                    max={slider.max}
+                                    value={slider.val}
+                                    onChange={handleChange}
+                                    className="absolute w-full appearance-none bg-transparent cursor-pointer z-20 h-full"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Alt Satır (Min/Max Labels) */}
+                        <div className="flex justify-between items-center mt-1 text-xs text-slate-400 font-medium tracking-wide w-full">
+                            <span>{slider.min} {slider.unit}</span>
+                            <span>{slider.max} {slider.unit}</span>
+                        </div>
                     </div>
                 ))}
             </div>
+
+            <style>{`
+                input[type=range]::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    background: #6366f1;
+                    height: 24px;
+                    width: 24px;
+                    border-radius: 50%;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                    margin-top: -8px;
+                    border: 3px solid white;
+                }
+                input[type=range]::-webkit-slider-runnable-track {
+                    width: 100%;
+                    height: 8px;
+                    cursor: pointer;
+                    background: transparent; 
+                    border-radius: 9999px;
+                }
+            `}</style>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function EducationalSection() {
     return (
-        <section className="bg-white text-gray-800 py-16 px-4 sm:px-6 lg:px-8">
+        <section className="bg-white text-gray-800 pt-8 pb-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
 
@@ -13,6 +13,12 @@ export default function EducationalSection() {
                         <p className="mb-6 leading-relaxed">
                             BMI, boyunuza ve kilonuza dayanarak zayıflık veya şişmanlık derecenizi ölçen, doku kütlesini ölçmeyi amaçlayan bir hesaplamadır. Bir kişinin boyuna göre sağlıklı bir vücut ağırlığına sahip olup olmadığının genel bir göstergesi olarak yaygın şekilde kullanılır.
                         </p>
+
+                        <h3 className="text-xl font-semibold mb-3 text-indigo-800">BMI Formülü</h3>
+                        <div className="bg-gray-50 p-5 rounded-lg border border-gray-200 mb-8 font-mono text-xs sm:text-sm">
+                            <p>BMI = Kilo (kg) / ( Boy (m) * Boy (m) )</p>
+                            <p className="mt-2 text-indigo-600 font-bold">Örnek: 75 kg / (1.75 * 1.75) = 24.49</p>
+                        </div>
 
                         <h3 className="text-xl font-semibold mb-3 text-indigo-800">Yetişkinler İçin BMI Tablosu (DSÖ)</h3>
                         <div className="overflow-x-auto mb-8">
@@ -37,10 +43,10 @@ export default function EducationalSection() {
                         </div>
 
                         <h3 className="text-xl font-semibold mb-3 text-indigo-800">BMI'nin Sınırları</h3>
-                        <p className="mb-4 leading-relaxed text-sm">
+                        <p className="mb-4 leading-relaxed">
                             BMI sağlıklı vücut ağırlığını belirlemek için yaygın olsa da, kas ve yağ oranını dikkate almayan sadece bir tahmindir.
                         </p>
-                        <ul className="list-disc pl-6 space-y-2 mb-8 text-sm text-gray-700">
+                        <ul className="list-disc pl-6 space-y-2 mb-8 text-gray-700">
                             <li><strong>Sporcular:</strong> Kas yağdan daha ağır olduğu için yüksek kas kütlesine sahip kişiler BMI'ye göre "Obez" çıkabilir, ancak aslında son derece sağlıklıdırlar.</li>
                             <li><strong>Yaşlı Yetişkinler:</strong> Aynı BMI değerine sahip gençlere kıyasla daha fazla vücut yağına sahip olma eğilimindedirler.</li>
                         </ul>
@@ -48,7 +54,7 @@ export default function EducationalSection() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <h3 className="text-lg font-semibold mb-2 text-red-700">Fazla Kilo Riskleri</h3>
-                                <ul className="list-disc pl-5 space-y-1 text-xs text-gray-700">
+                                <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-700">
                                     <li>Yüksek tansiyon ve kolesterol</li>
                                     <li>Tip II diyabet</li>
                                     <li>Koroner kalp hastalığı</li>
@@ -57,7 +63,7 @@ export default function EducationalSection() {
                             </div>
                             <div>
                                 <h3 className="text-lg font-semibold mb-2 text-yellow-600">Düşük Kilo Riskleri</h3>
-                                <ul className="list-disc pl-5 space-y-1 text-xs text-gray-700">
+                                <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-700">
                                     <li>Yetersiz beslenme ve anemi</li>
                                     <li>Osteoporoz (Kemik erimesi)</li>
                                     <li>Zayıf bağışıklık sistemi</li>
