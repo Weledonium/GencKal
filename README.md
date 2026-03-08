@@ -5,8 +5,8 @@ GençKal, kullanıcıların Beden Kitle İndeksi (BMI), Yağsız Vücut Kütlesi
 ## 🌟 Özellikler
 * **Canlı Analiz Paneli:** Girilen fiziksel verilere göre anında BMI ve Yağsız Kütle hesaplaması.
 * **İnteraktif Skala:** Matematiksel olarak kusursuz hizalanmış referans değerleri.
-* **Modern UI/UX:** Zengin Teal/Cyan gradyanlar, asimetrik kart tasarımları ve cam efekti (glassmorphism) detayları.
-* **AI Entegrasyonu:** (Çok Yakında) Kullanıcı verilerine özel diyet planı oluşturma.
+* **Modern UI/UX:** Zengin gradyanlar, asimetrik kart tasarımları ve cam efekti (glassmorphism) detayları.
+* **AI Entegrasyonu:** Kullanıcı verilerine özel diyet planı oluşturma.
 
 ## 🛠️ Teknolojiler
 * Next.js / React
