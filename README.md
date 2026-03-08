@@ -13,9 +13,10 @@ GençKal, kullanıcıların Beden Kitle İndeksi (BMI), Yağsız Vücut Kütlesi
 * Tailwind CSS
 * TypeScript
 
-## 📅 Proje İş Kırılım Yapısı (Gantt Şeması)
+## 📅 Proje Görev Zaman Çizelgesi (Gantt Şeması)
 
 ```mermaid
+%%{init: {'theme': 'dark', 'gantt': {'sectionFontSize': 14, 'fontSize': 12}}}%%
 gantt
     title GençKal AI - Geliştirme Takvimi
     dateFormat  YYYY-MM-DD
@@ -23,8 +24,8 @@ gantt
     tickInterval 1week
 
     section Faz 1: UI
-    Altyapı       :done,    des1, 2026-02-23, 7d
-    Algoritma     :done,    des2, 2026-03-02, 7d
+    Altyapı       :crit,    des1, 2026-02-23, 7d
+    Algoritma     :crit,    des2, 2026-03-02, 7d
 
     section Faz 2: AI
     API           :active,  des3, 2026-03-09, 7d
