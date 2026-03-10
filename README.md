@@ -18,7 +18,7 @@ GençKal, kullanıcıların Beden Kitle İndeksi (BMI), Yağsız Vücut Kütlesi
 ```mermaid
 %%{init: {'theme': 'dark', 'gantt': {'sectionFontSize': 14, 'fontSize': 12}}}%%
 gantt
-    title GençKal AI - Geliştirme Takvimi
+    title GençKal - Geliştirme Takvimi
     dateFormat  YYYY-MM-DD
     axisFormat  %d %b
     tickInterval 1week
