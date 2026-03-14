@@ -75,9 +75,9 @@ export default function EducationalSection() {
 
                     {/* --- SAĞ KOLON: FFMI BÖLÜMÜ --- */}
                     <section>
-                        <h2 className="text-3xl font-bold mb-4 text-center text-indigo-900">FFMI Nedir?</h2>
+                        <h2 className="text-3xl font-bold mb-4 text-center text-indigo-900">FFMI (Yağsız Vücut Kütlesi İndeksi) Nedir?</h2>
                         <p className="mb-6 leading-relaxed">
-                            FFMI (Yağsız Vücut Kütlesi İndeksi), boyunuza oranla ne kadar kas kütlesine sahip olduğunuzu hesaplamanızı sağlayan bir indekstir. Bu indeks, vücut geliştiriciler ve sporcular tarafından gelişimlerini takip etmek için yaygın olarak kullanılır ve BMI'ye göre çok daha güvenilirdir.
+                            FFMI, boyunuza oranla ne kadar kas kütlesine sahip olduğunuzu hesaplamanızı sağlayan bir indekstir. Bu indeks, vücut geliştiriciler ve sporcular tarafından gelişimlerini takip etmek için yaygın olarak kullanılır ve BMI'ye göre çok daha güvenilirdir.
                         </p>
 
                         <h3 className="text-xl font-semibold mb-3 text-indigo-800">FFMI Formülü</h3>

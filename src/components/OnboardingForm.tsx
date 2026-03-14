@@ -1,5 +1,6 @@
 "use client";
 import EducationalSection from "./EducationalSection";
+import TargetSimulator from "./TargetSimulator";
 
 import React, { useState, useMemo } from "react";
 import {
@@ -99,16 +100,17 @@ export default function OnboardingForm() {
                 <div className="animate-fade-in flex flex-col w-full">
 
                     {/* --- ÜST BÖLÜM --- */}
-                    <section className="bg-[#3E3AAF] text-white pb-16 relative overflow-hidden">
+                    <section className="bg-[#3E3AAF] text-white pb-2 relative overflow-hidden">
                         {/* Mock Navbar */}
-                        <header className="w-full flex justify-between items-center py-4 px-6 md:px-12 text-white font-medium text-[15px] border-b border-white/10">                            <div className="flex items-center gap-3 font-bold text-xl tracking-tight">
-                            <div className="flex items-center gap-1">
-                                <div className="w-1.5 h-5 bg-white rounded-full"></div>
-                                <div className="w-1.5 h-7 bg-white rounded-full"></div>
-                                <div className="w-1.5 h-5 bg-white rounded-full"></div>
+                        <header className="w-full flex justify-between items-center py-4 px-6 md:px-12 text-white font-medium text-[15px] border-b border-white/10">
+                            <div className="flex items-center gap-3 font-bold text-xl tracking-tight">
+                                <div className="flex items-center gap-1">
+                                    <div className="w-1.5 h-5 bg-white rounded-full"></div>
+                                    <div className="w-1.5 h-7 bg-white rounded-full"></div>
+                                    <div className="w-1.5 h-5 bg-white rounded-full"></div>
+                                </div>
+                                genckalcalculator
                             </div>
-                            genckalcalculator
-                        </div>
                             <div className="hidden sm:flex items-center gap-6">
                                 <button
                                     onClick={handleProceedToDiet}
@@ -120,7 +122,7 @@ export default function OnboardingForm() {
                             </div>
                         </header>
 
-                        <div className="w-full max-w-[900px] mx-auto z-10 flex flex-col items-center mt-4 md:mt-8 px-4">
+                        <div className="w-full mx-auto z-10 flex flex-col items-center mt-4 md:mt-8 px-4">
 
                             {/* Main Title */}
                             <div className="text-center mb-8 mt-2">
@@ -133,28 +135,48 @@ export default function OnboardingForm() {
                             </div>
 
                             {errorLine && (
-                                <div className="w-full mb-4 p-4 bg-red-500/20 border border-red-500/50 text-white rounded-xl text-center text-sm font-bold animate-pulse">
+                                <div className="w-full max-w-[900px] mb-4 p-4 bg-red-500/20 border border-red-500/50 text-white rounded-xl text-center text-sm font-bold animate-pulse">
                                     {errorLine}
                                 </div>
                             )}
 
-                            {/* ASYMMETRIC CARDS SECTION */}
-                            <div className="relative flex flex-col md:flex-row mt-4 md:mt-8 w-full mb-6 md:mb-8 max-w-6xl mx-auto px-4">                                <div className="z-20 w-full md:w-auto flex justify-center md:justify-end">
-                                <ResultsPanel calculatedBMI={calculatedBMI} leanMass={leanMass} bodyFat={yagOrani || 0} kilo={kilo} />                            </div>
-                                <div className="z-10 w-full md:w-auto md:-ml-12 mt-6 md:mt-0 flex justify-center md:justify-start">
-                                    <InputPanel data={formData.fizikselVeriler} handleChange={handleFizikselChange} setField={setFizikselAlan} />
+                            {/* DASHBOARD LAYOUT: SOLDA ANALİZ+FORM, SAĞDA SİMÜLATÖR */}
+                            <div className="relative flex flex-col xl:flex-row justify-center items-center xl:items-stretch gap-8 mt-4 md:mt-8 w-full mb-6 md:mb-8 max-w-[1400px] mx-auto">
+
+                                {/* Sol Grup: Canlı Analiz ve Beyaz Form (Eski Asimetrik Yapı) */}
+                                <div className="relative flex flex-col md:flex-row w-full max-w-4xl justify-center items-center md:items-stretch">
+                                    <div className="z-20 w-full md:w-auto flex justify-center md:justify-end">
+                                        <ResultsPanel
+                                            calculatedBMI={calculatedBMI}
+                                            leanMass={leanMass}
+                                            bodyFat={yagOrani || 0}
+                                            kilo={kilo}
+                                            ffmi={rawFFMI}
+                                            normalizedFfmi={calculatedFFMI}
+                                        />
+                                    </div>
+                                    <div className="z-10 w-full md:w-auto md:-ml-12 mt-6 md:mt-0 flex justify-center md:justify-start">
+                                        <InputPanel data={formData.fizikselVeriler} handleChange={handleFizikselChange} setField={setFizikselAlan} />
+                                    </div>
                                 </div>
+
+                                {/* Sağ Grup: Hedef Simülatörü */}
+                                {kilo > 0 && yagOrani > 0 && (
+                                    <div className="z-20 w-full xl:w-auto flex justify-center">
+                                        <TargetSimulator currentWeight={kilo} leanMass={leanMass} currentBodyFat={yagOrani} />
+                                    </div>
+                                )}
                             </div>
                         </div>
 
                         {/* ALT SKALA */}
-                        <div className="w-full -mt-10 md:-mt-16 relative z-20">
+                        <div className="w-full relative z-20 -mt-6 md:-mt-10 pb-20 md:pb-32">
                             <ReferenceScale score={calculatedFFMI > 0 ? calculatedFFMI : calculatedBMI} type={calculatedFFMI > 0 ? "FFMI" : "BMI"} gender={formData.fizikselVeriler.cinsiyet} />
                         </div>
                     </section>
 
-                    {/* --- ALT BÖLÜM (BEYAZ) --- */}
-                    <div className="-mt-4 md:-mt-8 relative z-30">
+                    {/* --- ALT BÖLÜM (BEYAZ EĞİTİM ALANI) --- */}
+                    <div className="relative z-30 w-full bg-white shadow-[0_-25px_50px_rgba(0,0,0,0.15)] -mt-16 md:-mt-32 pt-8">
                         <EducationalSection />
                     </div>
 

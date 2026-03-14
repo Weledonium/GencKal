@@ -4,10 +4,12 @@ interface ResultsPanelProps {
     calculatedBMI: number;
     leanMass: number;
     bodyFat: number;
-    kilo: number; // <- 1. EKLENEN KISIM: Kilo verisini alıyoruz
+    kilo: number;
+    ffmi?: number;
+    normalizedFfmi?: number;
 }
 
-export default function ResultsPanel({ calculatedBMI, leanMass, bodyFat, kilo }: ResultsPanelProps) {
+export default function ResultsPanel({ calculatedBMI, leanMass, bodyFat, kilo, ffmi, normalizedFfmi }: ResultsPanelProps) {
     let bmiLabel = "Normal";
 
     if (calculatedBMI > 0) {
@@ -25,8 +27,6 @@ export default function ResultsPanel({ calculatedBMI, leanMass, bodyFat, kilo }:
     const arcLength = 188.5; // (270 degrees out of 360 with radius 40)
     const progressPercent = calculatedBMI > 0 ? Math.min(100, Math.max(0, (calculatedBMI / 40) * 100)) : 0;
     const dashOffset = arcLength - (arcLength * progressPercent) / 100;
-
-    // <- 2. EKLENEN KISIM: Vücut Yağ Kütlesi Hesaplama (Orijinal sitedeki hatanın çözümü)
     const fatMass = (kilo * bodyFat) / 100;
 
     return (
@@ -87,6 +87,20 @@ export default function ResultsPanel({ calculatedBMI, leanMass, bodyFat, kilo }:
                     <span className="text-[#656b85] font-normal tracking-wide">Vücut Yağ Kütlesi</span>
                     <span className="text-[#656b85] font-medium">{bodyFat > 0 ? fatMass.toFixed(2) : '--'} kg</span>
                 </div>
+
+                {ffmi !== undefined && (
+                    <div className="flex justify-between items-center text-[13.5px]">
+                        <span className="text-[#656b85] font-normal tracking-wide">FFMI Skoru</span>
+                        <span className="text-white font-medium">{ffmi.toFixed(2)}</span>
+                    </div>
+                )}
+
+                {normalizedFfmi !== undefined && (
+                    <div className="flex justify-between items-center text-[13.5px]">
+                        <span className="text-[#656b85] font-normal tracking-wide">Normalize FFMI</span>
+                        <span className="text-emerald-400 font-bold">{normalizedFfmi.toFixed(2)}</span>
+                    </div>
+                )}
             </div>
         </div>
     );
